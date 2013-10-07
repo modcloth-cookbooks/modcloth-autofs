@@ -43,7 +43,20 @@ service 'autofs' do
   action [ :enable ]
 end
 
-cookbook_file '/etc/auto_master' do
-  source 'auto_master'
+template '/etc/auto_master' do
+  source 'auto_master.erb'
+  variables(:auto_direct_mountpoints => node[:autofs][:auto_direct][:mountpoints])
   notifies :restart, 'service[autofs]', :immediately
+end
+
+node[:autofs][:auto_direct][:mountpoints].each do |mount|
+  directory mount.split.first do
+  end
+end
+
+template '/etc/auto_direct' do
+  source 'auto_direct.erb'
+  notifies :restart, 'service[autofs]', :immediately
+  variables(:auto_direct_mountpoints => node[:autofs][:auto_direct][:mountpoints])
+  not_if { node[:autofs][:auto_direct][:mountpoints].empty? }
 end
