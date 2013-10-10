@@ -26,7 +26,7 @@
 # SOFTWARE.
 #
 
-case node['platform']
+case node[:platform]
 when 'smartos'
   include_recipe 'modcloth-autofs::smartos'
 when 'centos'
