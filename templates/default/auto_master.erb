@@ -1,0 +1,7 @@
+# Dropped off by Chef - Do not edit!
+
+/net    -hosts -nosuid
+
+<% unless @auto_direct_mountpoints.empty? %>
+/- /etc/auto_direct
+<% end %>
