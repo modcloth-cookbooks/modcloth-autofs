@@ -35,7 +35,7 @@ service 'autofs' do
   action [:enable]
 end
 
-cookbook_file '/etc/auto.master' do
+template '/etc/auto.master' do
   source 'auto_master.erb'
   notifies :restart, 'service[autofs]', :immediately
 end
