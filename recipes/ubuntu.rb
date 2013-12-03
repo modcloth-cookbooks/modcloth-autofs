@@ -35,7 +35,8 @@ service 'autofs' do
   action [ :enable ]
 end
 
-cookbook_file '/etc/auto.master' do
-  source 'auto_master'
+template '/etc/auto.master' do
+  source 'auto_master.erb'
+  variables(:auto_direct_mountpoints => node[:autofs][:auto_direct][:mountpoints])
   notifies :restart, 'service[autofs]', :immediately
 end
