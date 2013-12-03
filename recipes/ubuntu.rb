@@ -36,6 +36,6 @@ service 'autofs' do
 end
 
 cookbook_file '/etc/auto.master' do
-  source 'auto_master'
+  source 'auto_master.erb'
   notifies :restart, 'service[autofs]', :immediately
 end
